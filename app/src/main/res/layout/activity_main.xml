@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/cuadro"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
+        android:gravity="center"
+        android:text="Elija una opción"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/picture"
+        android:layout_margin="5dp"
+        android:background="@drawable/pic_border"
+        android:layout_weight="0.75"
+        android:layout_padding="20dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false" />
+
+</LinearLayout>

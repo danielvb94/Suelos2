@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Suelos2</string>
+    <string name="button_send">Send</string>
+    <string name="picture">Picture</string>
+    <string name="capture">Cámara</string>
+    <string name="galery_btn">Galería</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

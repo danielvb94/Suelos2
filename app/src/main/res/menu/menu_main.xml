@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item android:id="@+id/action_camara"
+        android:icon="@mipmap/camara"
+        android:title="Cámara"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_galeria"
+        android:icon="@mipmap/galeria"
+        android:title="Galería"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_mapa"
+        android:icon="@mipmap/mapa"
+        android:title="Mapa"
+        app:showAsAction="always" />
+</menu>
