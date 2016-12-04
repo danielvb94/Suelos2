@@ -21,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,11 +38,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import data.DBHelper;
-import data.Floor;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -424,18 +421,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Read values from the "savedInstanceState"-object and put them in your textview
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        // Save the values you need from your textview into "outState"-object
-        super.onSaveInstanceState(outState);
-    }
-
 
 }
