@@ -120,21 +120,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="1e11c68fec92a17c84dd8d1dd80e74c4e67b12e2">
-        <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-10.0.1_00b12a0e24e86c7309769323499bd4f6ff7b9cfc\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\10.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="8010ae6ed32828a145b25ec97bc07b7a83c6318f">
         <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-database-connection-10.0.1_37d1bce0b41b085c8f525981932d664891e59590\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="1e11c68fec92a17c84dd8d1dd80e74c4e67b12e2">
+        <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-games-10.0.1_00b12a0e24e86c7309769323499bd4f6ff7b9cfc\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -156,15 +156,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.0.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="4b17463c814bdc562fb0392fa3494063623a0904">
-        <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-messaging-10.0.1_67a47e7c412aaade03604742c2cd929c7ad76f37\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -174,11 +165,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="4b17463c814bdc562fb0392fa3494063623a0904">
+        <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.firebase-firebase-messaging-10.0.1_67a47e7c412aaade03604742c2cd929c7ad76f37\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="2d589d38baaa8814360c5ed6a3736776427cd194">
+        sha1="08cb4c609ab23fb95a0c5116fd459f81da50f44f">
         <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e1850e7569ff62c850c93d5e08ac42182eaa6393\classes.dex" />
     </item>
     <item
@@ -493,7 +493,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="19244b4b015e68f93de42dbd12c35852bd2db60b">
+        sha1="43beebeaee6aebc1346cbf19bc1227d68fc6db33">
         <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_4483f14a492536cb06ce5360ec9cd3a3ec749055\classes.dex" />
     </item>
     <item
@@ -570,21 +570,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_86ae0407bd5668c738400ccefd35bf2bc3a5af24\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\24.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
         <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-24.0.0_8a24ea31c21a87269120e437be0098d19f6620ed\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\danie\AndroidStudioProjects\Suelos2\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.2.1_86ae0407bd5668c738400ccefd35bf2bc3a5af24\classes.dex" />
     </item>
     <item
         is-multidex="true"

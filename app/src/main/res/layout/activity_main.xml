@@ -10,7 +10,7 @@
         android:id="@+id/cuadro"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.14"
+        android:layout_weight="0.28"
         android:gravity="center"
         android:text="Elija una opción"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"

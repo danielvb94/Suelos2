@@ -9,12 +9,14 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,7 +46,6 @@ import data.DBHelper;
 
 
 public class MainActivity extends AppCompatActivity {
-    //public final static String EXTRA_MESSAGE = "com.example.danie.suelos2.MESSAGE";
     private DBHelper db;
     //keep track of camera capture intent
     final int CAMERA_CAPTURE = 1;
@@ -59,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
     ImageView i1;
 
     private String RUTACOMPLETA;
-    private String text = "No hay conexión con el servidor";
+    private String text = "Elija una opción";
+    String[] separated;
 
+    AlertDialog.Builder builder;
     private ProgressDialog dialog;
     private Bitmap thePic;
 
@@ -71,16 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
         db = DBHelper.getInstance(this);
 
+        builder = new AlertDialog.Builder(this);
+
         dialog = new ProgressDialog(this);
         dialog.setTitle("Cargando");
         dialog.setMessage("Procesando imagen...");
         dialog.setCancelable(false);
 
-        //b1 = (Button) findViewById(R.id.capture_btn);
-        //b2 = (Button) findViewById(R.id.galery_btn);
         i1 = (ImageView) findViewById(R.id.picture);
-        //b1.setOnClickListener(CamaraGaleria);
-        //b2.setOnClickListener(CamaraGaleria);
         i1.setOnClickListener(CamaraGaleria);
 
         //retrieve a reference to the UI button
@@ -166,13 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 //display the returned cropped image
                 picView.setImageBitmap(thePic);
 
-
-                //try {
-                //uploadFile(RUTACOMPLETA);
                 new MiTarea().execute();
-                //  } catch (IOException e) {
-                //     e.printStackTrace();
-                // }
             }
         }
     }
@@ -194,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
             out.flush();
             out.close();
-            //sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -236,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected Integer doInBackground(String... urls) {
-            int serverResponseCode = 0;
 
             HttpURLConnection connection;
             DataOutputStream dataOutputStream;
@@ -296,10 +290,6 @@ public class MainActivity extends AppCompatActivity {
                 dataOutputStream.writeBytes(lineEnd);
                 dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                serverResponseCode = connection.getResponseCode();
-                String serverResponseMessage = connection.getResponseMessage();
-
-
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     StringBuilder sb = new StringBuilder();
@@ -310,7 +300,10 @@ public class MainActivity extends AppCompatActivity {
                         // Append server response in string
                         sb.append(line);
                     }
+                    //separated = sb.toString().split(" ");
                     text = sb.toString();
+                    text = text.replaceAll("-","\n");
+                    text = text.replaceAll("_","\t\t");
                     reader.close();
 
                 }
@@ -319,8 +312,6 @@ public class MainActivity extends AppCompatActivity {
                 fileInputStream.close();
                 dataOutputStream.flush();
                 dataOutputStream.close();
-
-/****************************************************************************/
 
                 ExifInterface exifInterface = null;
                 try {
@@ -348,8 +339,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-
-/****************************************************************************/
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
@@ -384,9 +373,15 @@ public class MainActivity extends AppCompatActivity {
             //display the returned cropped image
             picView.setImageBitmap(thePic);
 
-            if (conexfail)
+            if (conexfail) {
                 Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
-
+            } else {
+                builder.setTitle("Resultados");
+                builder.setMessage(text);
+                builder.setCancelable(true);
+                builder.show();
+                text = "Resultados obtenidos";
+            }
 
         }
     }
@@ -411,13 +406,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent gallerypickerIntent = new Intent(Intent.ACTION_PICK);
                 gallerypickerIntent.setType("image/*");
                 startActivityForResult(gallerypickerIntent, GALERY_CAPTURE);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
                 break;
             case R.id.action_mapa:
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
                 break;
-
-
         }
         return true;
     }

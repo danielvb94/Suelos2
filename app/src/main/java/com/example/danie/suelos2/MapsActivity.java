@@ -8,22 +8,17 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import data.DBHelper;
@@ -64,9 +59,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for (Floor suelo : suelos) {
             lugar = new LatLng((double) suelo.getLat(), (double) suelo.getLon());
-            mMap.addMarker(new MarkerOptions().position(lugar).title(suelo.getTipo()).snippet(suelo.getFecha() + "\n" + suelo.getPath()));
+            String titulo = suelo.getTipo();
+            titulo = titulo.replaceAll("\n","|| ");
+            titulo = titulo.replaceAll(" \t\t ", "");
+            mMap.addMarker(new MarkerOptions().position(lugar).title(titulo).snippet(suelo.getFecha() + "\n" + suelo.getPath()));
         }
-        if (lugar != null) mMap.moveCamera(CameraUpdateFactory.newLatLng(lugar));
+        if (lugar != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(lugar));
+            CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+            mMap.animateCamera(zoom);
+        }
+
 
     }
 
