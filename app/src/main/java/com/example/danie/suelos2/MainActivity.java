@@ -37,6 +37,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,9 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private Uri picUri = null;
     //keep track of cropping intent
     final int PIC_CROP = 2;
+    boolean conexfail = false;
 
-    Button b1;
-    Button b2;
     ImageView i1;
 
     private String RUTACOMPLETA;
@@ -98,18 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     View.OnClickListener CamaraGaleria = new View.OnClickListener() {
         public void onClick(View v) {
-            /*if (v.getId() == R.id.capture_btn) {
-                //use standard intent to capture an image
-                Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //we will handle the returned data in onActivityResult
-                startActivityForResult(captureIntent, CAMERA_CAPTURE);
-
-            } else if (v.getId() == R.id.galery_btn) {
-                Intent gallerypickerIntent = new Intent(Intent.ACTION_PICK);
-                gallerypickerIntent.setType("image/*");
-                startActivityForResult(gallerypickerIntent, GALERY_CAPTURE);
-
-            } else */if (v.getId() == R.id.picture && picUri != null) {
+            if (v.getId() == R.id.picture && picUri != null) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setDataAndType(picUri, "image/*");
@@ -183,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //try {
                 //uploadFile(RUTACOMPLETA);
-                //new MiTarea().execute();
+                new MiTarea().execute();
                 //  } catch (IOException e) {
                 //     e.printStackTrace();
                 // }
@@ -322,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
                     // Read Server Response
                     while ((line = reader.readLine()) != null) {
                         // Append server response in string
-                        sb.append(line + "\n");
+                        sb.append(line);
                     }
                     text = sb.toString();
                     reader.close();
@@ -335,7 +324,6 @@ public class MainActivity extends AppCompatActivity {
                 dataOutputStream.close();
 
 /****************************************************************************/
-                ContentValues values = new ContentValues();
 
                 ExifInterface exifInterface = null;
                 try {
@@ -344,13 +332,21 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+
                 float[] LatLong = new float[2];
                 if (exifInterface.getLatLong(LatLong)) {
-                    values.put("Fecha",exifInterface.getAttribute(ExifInterface.TAG_DATETIME));
-                    values.put("Latitud",LatLong[0]);
-                    values.put("Longitud",LatLong[1]);
-                    values.put("Url",getRealPathFromURI(picUri));
-                    values.put("Suelo",text);
+                    ContentValues values = new ContentValues();
+
+                    String antigua = exifInterface.getAttribute(ExifInterface.TAG_DATETIME_DIGITIZED);
+                    SimpleDateFormat dt = new SimpleDateFormat("yyyy:MM:dd hh:mm:ss");
+                    Date date = dt.parse(antigua);
+                    SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
+                    values.put("Fecha",dt1.format(date));
+                    values.put("Latitud", LatLong[0]);
+                    values.put("Longitud", LatLong[1]);
+                    values.put("Url", picUri.toString());
+                    values.put("Suelo", text);
                     db.inserta(values);
 
                 }
@@ -371,6 +367,9 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                conexfail = true;
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
             return 250;
@@ -388,6 +387,9 @@ public class MainActivity extends AppCompatActivity {
             //display the returned cropped image
             picView.setImageBitmap(thePic);
 
+            if (conexfail)
+                Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+
 
         }
     }
@@ -401,9 +403,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_camara:
                 Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(captureIntent, CAMERA_CAPTURE);
@@ -414,13 +416,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(gallerypickerIntent, GALERY_CAPTURE);
                 break;
             case R.id.action_mapa:
-                Intent intent = new Intent(MainActivity.this,MapsActivity.class);
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(intent);
                 break;
 
 
         }
         return true;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Read values from the "savedInstanceState"-object and put them in your textview
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Save the values you need from your textview into "outState"-object
+        super.onSaveInstanceState(outState);
     }
 
 

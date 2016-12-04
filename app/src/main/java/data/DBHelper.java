@@ -61,10 +61,17 @@ public class DBHelper extends SQLiteOpenHelper{
         Cursor c = db.rawQuery("SELECT * FROM gravita",null);
         if(c.moveToFirst()){
             do{
-                salida.add(new Floor(c.getFloat(4),c.getFloat(5),c.getString(3),c.getString(2),c.getString(1)));
+                salida.add(new Floor(c.getFloat(4),c.getFloat(5),c.getString(3),c.getString(2),c.getString(1),c.getInt(0)));
             } while (c.moveToNext());
         }
         db.close();
         return salida;
     }
+
+    public void elimina(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("gravita","Id = " + id, null);
+        db.close();
+    }
+
 }

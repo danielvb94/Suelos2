@@ -11,13 +11,23 @@ public class Floor {
     private String fecha;
     private String tipo;
     private String path;
+    private int id;
 
-    public Floor(Float lat, Float lon, String fecha, String tipo, String path) {
+    public Floor(Float lat, Float lon, String fecha, String tipo, String path, int id) {
         this.lat = lat;
         this.lon = lon;
         this.fecha = fecha;
         this.tipo = tipo;
         this.path = path;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Float getLat() {

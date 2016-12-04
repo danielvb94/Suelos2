@@ -1,7 +1,13 @@
 package com.example.danie.suelos2;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,6 +20,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import data.DBHelper;
@@ -52,30 +62,64 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng lugar = null;
 
-        for(Floor suelo: suelos){
-            lugar = new LatLng ((double) suelo.getLat(),(double) suelo.getLon());
-            String url = suelo.getPath();
-            mMap.addMarker(new MarkerOptions().position(lugar).title(suelo.getTipo()).snippet(suelo.getFecha()));
+        for (Floor suelo : suelos) {
+            lugar = new LatLng((double) suelo.getLat(), (double) suelo.getLon());
+            mMap.addMarker(new MarkerOptions().position(lugar).title(suelo.getTipo()).snippet(suelo.getFecha() + "\n" + suelo.getPath()));
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(lugar));
-
-
+        if (lugar != null) mMap.moveCamera(CameraUpdateFactory.newLatLng(lugar));
 
     }
 
-    public ArrayList<Floor> etiquetas(){
+    public ArrayList<Floor> etiquetas() {
         DBHelper db = DBHelper.getInstance(this);
         ArrayList<Floor> suelos = db.getAll();
+
+        for (Floor suelo : suelos) {
+            String path = getRealPathFromURI(this,Uri.parse(suelo.getPath()));
+            File file = new File(path);
+
+            if (!file.exists()) {
+                db.elimina(suelo.getId());
+            }
+        }
+        suelos = db.getAll();
+
         return suelos;
     }
 
-    public boolean onMarkerClick(Marker marker){
+    public boolean onMarkerClick(Marker marker) {
         return false;
     }
 
     @Override
-    public void onInfoWindowClick(Marker marker){
-        Toast.makeText(this, "Hola",Toast.LENGTH_LONG).show();
-
+    public void onInfoWindowClick(Marker marker) {
+        //Toast.makeText(this, "Hola",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(marker.getSnippet().replaceFirst(".*\n","")), "image/*");
+        startActivity(intent);
     }
+
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+
+        String res = "";
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                res = cursor.getString(column_index);
+            }
+            cursor.close();
+        } else {
+            Log.d("E:", "Cursor is null");
+            return contentUri.getPath();
+        }
+        return res;
+    }
+
+
+
+
 }
