@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 FileInputStream fileInputStream = new FileInputStream(selectedFile);
-                URL url = new URL("http://192.168.1.16/tfg/ficheros/ejecutar.php");
+                URL url = new URL("http://192.168.43.232/tfg/ficheros/ejecutar.php");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);//Allow Inputs
                 connection.setDoOutput(true);//Allow Outputs
